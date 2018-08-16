@@ -103,11 +103,15 @@ for (let i = 0; i < max_players; i++) {
 	rooms[i].socket = io.of('/room' + i).on('connection', function(socket) {
 		rooms[i].player++;
 		console.log('someone connected room'+i+'.There are '+rooms[i].player+' player in the room');
-		console.log(rooms)
 		// 玩家退出, 断开玩家room
 		socket.on('disconnect',function(){
 	    	rooms[i].player--;
             console.log('someone disconnected room'+i+'.There are '+rooms[i].player+' player in the room');
-		});		
+		});
+		// 发布更新棋盘
+		socket.on('update chessboard',function(chessCoor){
+			socket.broadcast.emit('update chessboard',chessCoor);
+		});
+	
 	});
 }
