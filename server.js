@@ -112,6 +112,11 @@ for (let i = 0; i < max_players; i++) {
 		socket.on('update chessboard',function(chessCoor){
 			socket.broadcast.emit('update chessboard',chessCoor);
 		});
+		// 发布交换对手
+		socket.on('change turn',function(){
+			socket.broadcast.emit('change turn');
+		});
+
 	
 	});
 }
